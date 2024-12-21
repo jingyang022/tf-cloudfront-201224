@@ -7,6 +7,9 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
       origin_access_identity = aws_cloudfront_origin_access_identity.my_oai.cloudfront_access_identity_path
     }
   }
+
+  aliases = ["yap201224.sctp-sandbox.com"]
+
   default_cache_behavior {
     target_origin_id      = aws_s3_bucket.static_bucket.bucket
     viewer_protocol_policy = "redirect-to-https"
