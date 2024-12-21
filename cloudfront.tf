@@ -28,6 +28,8 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     }
   }
 
+  #web_acl_id = aws_wafv2_web_acl.example.arn
+
   restrictions {
     geo_restriction {
       restriction_type = "none"
