@@ -3,6 +3,8 @@ resource "aws_acm_certificate" "mycert_acm" {
   domain_name       = "yap201224.sctp-sandbox.com"
   validation_method = "DNS"
 
+  provider = aws.virginia
+
   lifecycle {
     create_before_destroy = true
   }
@@ -28,10 +30,13 @@ resource "aws_route53_record" "cert_validation_record" {
 
 #Step 3: Handle Certificate Validation
 resource "aws_acm_certificate_validation" "cert_validation" {
+
+  provider = aws.virginia
+
   timeouts {
     create = "5m"
   }
-  provider = aws.virginia
+  
   certificate_arn         = aws_acm_certificate.mycert_acm.arn
   validation_record_fqdns = [for record in aws_route53_record.cert_validation_record : record.fqdn]
 }
